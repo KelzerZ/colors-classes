@@ -1,13 +1,13 @@
 import { Rgb } from "./Rgb";
 import { Color } from "./color";
-type HexType = `#${string}`;
+type HexColor = `#${string}`;
 export declare const HEX_SYSTEM_VALUE = 16;
 export declare const MAX_BYTE_VALUE = 255;
-export declare class Hex implements Color<HexType> {
+export declare class Hex implements Color<HexColor> {
     private _hex;
-    constructor(hex: HexType);
+    constructor(hex: HexColor);
     asRgb(): Rgb;
     luminance(): number;
-    readColor(): HexType;
+    readColor(): HexColor;
 }
 export {};

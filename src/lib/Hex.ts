@@ -1,7 +1,7 @@
 import { Rgb, RgbNumber } from "./Rgb";
 import { Color } from "./color";
 
-type HexType = `#${string}`;
+type HexColor = `#${string}`;
 
 const enum ByteLength {
 	One = 8,
@@ -11,10 +11,10 @@ const enum ByteLength {
 export const HEX_SYSTEM_VALUE = 16;
 export const MAX_BYTE_VALUE = 255;
 
-export class Hex implements Color<HexType> {
-	private _hex: HexType;
+export class Hex implements Color<HexColor> {
+	private _hex: HexColor;
 
-	constructor(hex: HexType) {
+	constructor(hex: HexColor) {
 		this._hex = hex;
 	}
 
@@ -33,7 +33,7 @@ export class Hex implements Color<HexType> {
 		return this.asRgb().luminance();
 	}
 
-	public readColor(): HexType {
+	public readColor(): HexColor {
 		return this._hex;
 	}
 }

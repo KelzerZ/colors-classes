@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "Here u see classes on any color-system",
 	"main": "./build/index.js",
+	"type": "module",
 	"scripts": {
 		"build": "build-script.bat"
 	},
