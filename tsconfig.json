@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "es2022",
+		"module": "es2022",
+		"rootDir": "./src",
+		"declaration": true,
+		"outDir": "./build",
+		"declarationDir": "./build/types",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"typeRoots": ["./build/types"]
+	},
+	"include": ["src/**/*"]
+}
