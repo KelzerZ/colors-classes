@@ -1,4 +1,4 @@
-import { HEX_SYSTEM_VALUE, Hex, MAX_BYTE_VALUE } from "./Hex";
+import { HEX_SYSTEM_VALUE, Hex, MAX_BYTE_VALUE } from "./Hex.js";
 import { Color } from "./color";
 
 type IntRange<

@@ -1,4 +1,4 @@
-import { Rgb, RgbNumber } from "./Rgb";
+import { Rgb, RgbNumber } from "./Rgb.js";
 import { Color } from "./color";
 
 type HexColor = `#${string}`;
