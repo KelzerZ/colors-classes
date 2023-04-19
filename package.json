@@ -1,0 +1,19 @@
+{
+  "name": "colors-classes",
+  "version": "1.0.0",
+  "description": "Here u see classes on any color-system",
+  "main": "./build/index.js",
+  "scripts": {
+    "build": "build-script.bat"
+  },
+  "keywords": [
+    "ts",
+    "typescript",
+    "color",
+    "colors",
+    "js",
+    "javascript"
+  ],
+  "author": "nekelzer",
+  "license": "ISC"
+}
