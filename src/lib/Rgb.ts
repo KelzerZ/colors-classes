@@ -1,4 +1,4 @@
-import { HEX_SYSTEM_VALUE, Hex } from "./Hex";
+import { HEX_SYSTEM_VALUE, Hex, MAX_BYTE_VALUE } from "./Hex";
 import { Color } from "./color";
 
 type IntRange<
@@ -9,6 +9,12 @@ type IntRange<
 	: IntRange<N, [...Acc, Acc["length"]]>;
 
 export type RgbNumber = IntRange<256>;
+
+const enum LuminanceRatio {
+	Red = 0.2126,
+	Green = 0.7152,
+	Blue = 0.0722
+}
 
 interface RgbColor {
 	red: RgbNumber;
@@ -33,6 +39,17 @@ export class Rgb implements Color<RgbColor> {
 		const hexBlue = this._green.toFixed(HEX_SYSTEM_VALUE);
 
 		return new Hex(`#${hexRed}${hexGreen}${hexBlue}`);
+	}
+
+	public luminance(): number {
+		const redLuminance = this._red * LuminanceRatio.Red;
+		const greenLuminance = this._green * LuminanceRatio.Green;
+		const blueLuminance = this._blue * LuminanceRatio.Blue;
+
+		const luminance = redLuminance + greenLuminance + blueLuminance;
+
+		// Max rgb value is 255, and max byte value is 255
+		return Math.ceil(luminance / MAX_BYTE_VALUE);
 	}
 
 	public readColor(): RgbColor {

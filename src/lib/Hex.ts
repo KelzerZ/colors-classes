@@ -9,7 +9,7 @@ const enum ByteLength {
 }
 
 export const HEX_SYSTEM_VALUE = 16;
-const MAX_BYTE_VALUE = 255;
+export const MAX_BYTE_VALUE = 255;
 
 export class Hex implements Color<HexType> {
 	private _hex: HexType;
@@ -18,7 +18,7 @@ export class Hex implements Color<HexType> {
 		this._hex = hex;
 	}
 
-	public asRgb() {
+	public asRgb(): Rgb {
 		const hex = this._hex.replace("#", "");
 		const hexNumber = parseInt(hex, HEX_SYSTEM_VALUE);
 
@@ -27,6 +27,10 @@ export class Hex implements Color<HexType> {
 		const blue = (hexNumber & MAX_BYTE_VALUE) as RgbNumber;
 
 		return new Rgb({ red, green, blue });
+	}
+
+	public luminance(): number {
+		return this.asRgb().luminance();
 	}
 
 	public readColor(): HexType {
