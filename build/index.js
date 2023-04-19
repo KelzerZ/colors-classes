@@ -1,3 +1,3 @@
-import { Hex } from "./lib/Hex";
-import { Rgb } from "./lib/Rgb";
+import { Hex } from "./lib/Hex.js";
+import { Rgb } from "./lib/Rgb.js";
 export { Hex, Rgb };

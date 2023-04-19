@@ -1,4 +1,4 @@
-import { Rgb } from "./Rgb";
+import { Rgb } from "./Rgb.js";
 import { Color } from "./color";
 type HexColor = `#${string}`;
 export declare const HEX_SYSTEM_VALUE = 16;

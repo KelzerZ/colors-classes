@@ -1,4 +1,4 @@
-import { HEX_SYSTEM_VALUE, Hex, MAX_BYTE_VALUE } from "./Hex";
+import { HEX_SYSTEM_VALUE, Hex, MAX_BYTE_VALUE } from "./Hex.js";
 export class Rgb {
     _red;
     _green;

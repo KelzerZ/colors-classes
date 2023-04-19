@@ -1,4 +1,4 @@
-import { Hex } from "./Hex";
+import { Hex } from "./Hex.js";
 import { Color } from "./color";
 type IntRange<N extends number, Acc extends number[] = []> = Acc["length"] extends N ? Acc[number] : IntRange<N, [...Acc, Acc["length"]]>;
 export type RgbNumber = IntRange<256>;
