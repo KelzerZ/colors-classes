@@ -8,8 +8,7 @@
 		"declarationDir": "./build/types",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
-		"strict": true,
-		"typeRoots": ["./build/types"]
+		"strict": true
 	},
 	"include": ["src/**/*"]
 }
