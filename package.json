@@ -16,6 +16,14 @@
 		"js",
 		"javascript"
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/KelzerZ/colors-classes"
+	},
+	"homepage": "https://github.com/KelzerZ/colors-classes",
+	"bugs": {
+		"url": "https://github.com/KelzerZ/colors-classes"
+	},
 	"author": "nekelzer",
 	"license": "ISC",
 	"devDependencies": {
