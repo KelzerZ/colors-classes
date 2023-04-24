@@ -32,7 +32,7 @@ console.log(rgb.asHex()); // You'll see a value as #HexValue
 ## API
 
 At the moment there are 3 classes defining color systems **(Hex and Rgb, Hsl)**
-And all classes have 3 common methods: **luminance**, **readColor**.
+And all classes have 2 common methods: **luminance**, **readColor**.
 
 In addition, each class has a method that allows you to convert the value of one color system to another.
 All such methods are called using **_as_**, followed by the name of the color system, that is: asRgb, asHex, etc.
