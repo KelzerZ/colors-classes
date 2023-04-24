@@ -14,6 +14,9 @@ export class Hex {
         const blue = (hexNumber & MAX_BYTE_VALUE);
         return new Rgb({ red, green, blue });
     }
+    asHsl() {
+        return this.asRgb().asHsl();
+    }
     luminance() {
         return this.asRgb().luminance();
     }

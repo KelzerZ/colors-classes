@@ -1,7 +1,14 @@
 import { HEX_SYSTEM_VALUE, Hex, MAX_BYTE_VALUE } from "./Hex.js";
+import {
+	Hsl,
+	HueNumber,
+	MAX_HUE_VALUE,
+	MAX_SATURATION_OR_LIGHTNESS_VALUE,
+	SaturationOrLightnessNumber
+} from "./Hsl.js";
 import { Color } from "./color";
 
-type IntRange<
+export type IntRange<
 	N extends number,
 	Acc extends number[] = []
 > = Acc["length"] extends N
@@ -39,6 +46,48 @@ export class Rgb implements Color<RgbColor> {
 		const hexBlue = this._green.toFixed(HEX_SYSTEM_VALUE);
 
 		return new Hex(`#${hexRed}${hexGreen}${hexBlue}`);
+	}
+
+	public asHsl(): Hsl {
+		// Max byte value is 255, and max rgb value is 255
+		const red = this._red / MAX_BYTE_VALUE;
+		const green = this._green / MAX_BYTE_VALUE;
+		const blue = this._green / MAX_BYTE_VALUE;
+
+		const max = Math.max(red, green, blue);
+		const min = Math.min(red, green, blue);
+
+		let hue = 0;
+		let saturation = 0;
+		const lightness = (max + min) * 0.5;
+
+		if (max !== min) {
+			const delta = max - min;
+
+			saturation =
+				lightness > 0.5 ? delta / (2 - max - min) : delta / (max + min);
+
+			switch (max) {
+				case red:
+					hue = (green - blue) / delta + (green < blue ? 6 : 0);
+					break;
+				case green:
+					hue = (blue - red) / delta + 2;
+					break;
+				case blue:
+					hue = (red - green) / delta + 4;
+					break;
+			}
+			hue /= 6;
+		}
+
+		return new Hsl({
+			hue: (hue * MAX_HUE_VALUE) as HueNumber,
+			saturation: (saturation *
+				MAX_SATURATION_OR_LIGHTNESS_VALUE) as SaturationOrLightnessNumber,
+			lightness: (lightness *
+				MAX_SATURATION_OR_LIGHTNESS_VALUE) as SaturationOrLightnessNumber
+		});
 	}
 
 	public luminance(): number {

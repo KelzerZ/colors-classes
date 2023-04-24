@@ -5,6 +5,6 @@ dir build
 if %errorlevel% equ 1 (
 	npx tsc
 ) else (
-	rmdir /q/s
+	rmdir /s/q
 	npx tsc
 )

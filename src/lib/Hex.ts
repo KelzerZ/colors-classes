@@ -1,3 +1,4 @@
+import { Hsl } from "./Hsl.js";
 import { Rgb, RgbNumber } from "./Rgb.js";
 import { Color } from "./color";
 
@@ -27,6 +28,10 @@ export class Hex implements Color<HexColor> {
 		const blue = (hexNumber & MAX_BYTE_VALUE) as RgbNumber;
 
 		return new Rgb({ red, green, blue });
+	}
+
+	public asHsl(): Hsl {
+		return this.asRgb().asHsl();
 	}
 
 	public luminance(): number {

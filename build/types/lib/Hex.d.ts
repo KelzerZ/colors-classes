@@ -1,3 +1,4 @@
+import { Hsl } from "./Hsl.js";
 import { Rgb } from "./Rgb.js";
 import { Color } from "./color";
 type HexColor = `#${string}`;
@@ -7,6 +8,7 @@ export declare class Hex implements Color<HexColor> {
     private _hex;
     constructor(hex: HexColor);
     asRgb(): Rgb;
+    asHsl(): Hsl;
     luminance(): number;
     readColor(): HexColor;
 }
