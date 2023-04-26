@@ -8,14 +8,16 @@ interface RgbColor {
     green: RgbNumber;
     blue: RgbNumber;
 }
-export declare class Rgb implements Color<RgbColor> {
+export declare class Rgb implements Color<RgbColor, Rgb> {
     private _red;
     private _green;
     private _blue;
     constructor({ red, green, blue }: RgbColor);
     asHex(): Hex;
     asHsl(): Hsl;
+    random(): Rgb;
     luminance(): number;
     readColor(): RgbColor;
+    private _rgbNumberAsHexNumber;
 }
 export {};

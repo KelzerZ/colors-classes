@@ -1,5 +1,5 @@
 import { HEX_SYSTEM_VALUE, Hex, MAX_BYTE_VALUE } from "./Hex.js";
-import { Hsl, MAX_HUE_VALUE, MAX_SATURATION_OR_LIGHTNESS_VALUE } from "./Hsl.js";
+import { Hsl, MaxHSLNumber } from "./Hsl.js";
 export class Rgb {
     _red;
     _green;
@@ -10,9 +10,9 @@ export class Rgb {
         this._blue = blue;
     }
     asHex() {
-        const hexRed = this._red.toFixed(HEX_SYSTEM_VALUE);
-        const hexGreen = this._green.toFixed(HEX_SYSTEM_VALUE);
-        const hexBlue = this._green.toFixed(HEX_SYSTEM_VALUE);
+        const hexRed = this._rgbNumberAsHexNumber(this._red);
+        const hexGreen = this._rgbNumberAsHexNumber(this._green);
+        const hexBlue = this._rgbNumberAsHexNumber(this._blue);
         return new Hex(`#${hexRed}${hexGreen}${hexBlue}`);
     }
     asHsl() {
@@ -43,11 +43,21 @@ export class Rgb {
             hue /= 6;
         }
         return new Hsl({
-            hue: (hue * MAX_HUE_VALUE),
+            hue: (hue * MaxHSLNumber.Hue),
             saturation: (saturation *
-                MAX_SATURATION_OR_LIGHTNESS_VALUE),
+                MaxHSLNumber.SaturationOrLightness),
             lightness: (lightness *
-                MAX_SATURATION_OR_LIGHTNESS_VALUE)
+                MaxHSLNumber.SaturationOrLightness)
+        });
+    }
+    random() {
+        const red = ((Math.random() * MAX_BYTE_VALUE + 1) >> 0);
+        const green = ((Math.random() * MAX_BYTE_VALUE + 1) >> 0);
+        const blue = ((Math.random() * MAX_BYTE_VALUE + 1) >> 0);
+        return new Rgb({
+            red,
+            green,
+            blue
         });
     }
     luminance() {
@@ -64,5 +74,9 @@ export class Rgb {
             green: this._green,
             blue: this._blue
         };
+    }
+    _rgbNumberAsHexNumber(color) {
+        const hexColor = color.toString(HEX_SYSTEM_VALUE);
+        return hexColor.length === 1 ? `0${hexColor}` : hexColor;
     }
 }

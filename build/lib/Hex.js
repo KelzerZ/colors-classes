@@ -17,6 +17,14 @@ export class Hex {
     asHsl() {
         return this.asRgb().asHsl();
     }
+    random() {
+        const hexValues = "0123456789abcdef";
+        let result = "#";
+        for (let i = 0; i < 6; i++) {
+            result += hexValues[Math.random() * hexValues.length];
+        }
+        return new Hex(result);
+    }
     luminance() {
         return this.asRgb().luminance();
     }

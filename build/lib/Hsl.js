@@ -1,7 +1,10 @@
 import { MAX_BYTE_VALUE } from "./Hex.js";
 import { Rgb } from "./Rgb.js";
-export const MAX_HUE_VALUE = 360;
-export const MAX_SATURATION_OR_LIGHTNESS_VALUE = 100;
+export var MaxHSLNumber;
+(function (MaxHSLNumber) {
+    MaxHSLNumber[MaxHSLNumber["Hue"] = 360] = "Hue";
+    MaxHSLNumber[MaxHSLNumber["SaturationOrLightness"] = 100] = "SaturationOrLightness";
+})(MaxHSLNumber || (MaxHSLNumber = {}));
 export class Hsl {
     _hue;
     _saturation;
@@ -12,9 +15,9 @@ export class Hsl {
         this._lightness = lightness;
     }
     asRgb() {
-        const hue = this._hue / MAX_HUE_VALUE;
-        const saturation = this._saturation / MAX_SATURATION_OR_LIGHTNESS_VALUE;
-        const lightness = this._lightness / MAX_SATURATION_OR_LIGHTNESS_VALUE;
+        const hue = this._hue / MaxHSLNumber.Hue;
+        const saturation = this._saturation / MaxHSLNumber.SaturationOrLightness;
+        const lightness = this._lightness / MaxHSLNumber.SaturationOrLightness;
         if (saturation === 0) {
             // Max byte value is 255, and max rgb value is 255
             return new Rgb({
@@ -28,13 +31,27 @@ export class Hsl {
             : lightness + saturation - lightness * saturation;
         const p = 2 * lightness - q;
         return new Rgb({
-            red: this._hueToRgb(p, q, hue + 1 / 3),
-            green: this._hueToRgb(p, q, hue),
-            blue: this._hueToRgb(p, q, hue - 1 / 3)
+            red: this._hslNumberToRgbNumber(p, q, hue + 1 / 3),
+            green: this._hslNumberToRgbNumber(p, q, hue),
+            blue: this._hslNumberToRgbNumber(p, q, hue - 1 / 3)
         });
     }
     asHex() {
         return this.asRgb().asHex();
+    }
+    random() {
+        const hue = ((Math.random() * MaxHSLNumber.Hue + 1) >> 0);
+        const saturation = ((Math.random() * MaxHSLNumber.SaturationOrLightness +
+            1) >>
+            0);
+        const lightness = ((Math.random() * MaxHSLNumber.SaturationOrLightness +
+            1) >>
+            0);
+        return new Hsl({
+            hue: hue,
+            saturation: saturation,
+            lightness: lightness
+        });
     }
     luminance() {
         return this.asRgb().luminance();
@@ -46,7 +63,7 @@ export class Hsl {
             lightness: this._lightness
         };
     }
-    _hueToRgb(p, q, t) {
+    _hslNumberToRgbNumber(p, q, t) {
         if (t < 0)
             t += 1;
         if (t > 1)

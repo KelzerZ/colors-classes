@@ -2,8 +2,7 @@ import { HEX_SYSTEM_VALUE, Hex, MAX_BYTE_VALUE } from "./Hex.js";
 import {
 	Hsl,
 	HueNumber,
-	MAX_HUE_VALUE,
-	MAX_SATURATION_OR_LIGHTNESS_VALUE,
+	MaxHSLNumber,
 	SaturationOrLightnessNumber
 } from "./Hsl.js";
 import { Color } from "./color";
@@ -29,7 +28,7 @@ interface RgbColor {
 	blue: RgbNumber;
 }
 
-export class Rgb implements Color<RgbColor> {
+export class Rgb implements Color<RgbColor, Rgb> {
 	private _red: RgbNumber;
 	private _green: RgbNumber;
 	private _blue: RgbNumber;
@@ -41,9 +40,9 @@ export class Rgb implements Color<RgbColor> {
 	}
 
 	public asHex(): Hex {
-		const hexRed = this._red.toFixed(HEX_SYSTEM_VALUE);
-		const hexGreen = this._green.toFixed(HEX_SYSTEM_VALUE);
-		const hexBlue = this._green.toFixed(HEX_SYSTEM_VALUE);
+		const hexRed = this._rgbNumberAsHexNumber(this._red);
+		const hexGreen = this._rgbNumberAsHexNumber(this._green);
+		const hexBlue = this._rgbNumberAsHexNumber(this._blue);
 
 		return new Hex(`#${hexRed}${hexGreen}${hexBlue}`);
 	}
@@ -82,11 +81,23 @@ export class Rgb implements Color<RgbColor> {
 		}
 
 		return new Hsl({
-			hue: (hue * MAX_HUE_VALUE) as HueNumber,
+			hue: (hue * MaxHSLNumber.Hue) as HueNumber,
 			saturation: (saturation *
-				MAX_SATURATION_OR_LIGHTNESS_VALUE) as SaturationOrLightnessNumber,
+				MaxHSLNumber.SaturationOrLightness) as SaturationOrLightnessNumber,
 			lightness: (lightness *
-				MAX_SATURATION_OR_LIGHTNESS_VALUE) as SaturationOrLightnessNumber
+				MaxHSLNumber.SaturationOrLightness) as SaturationOrLightnessNumber
+		});
+	}
+
+	public random(): Rgb {
+		const red = ((Math.random() * MAX_BYTE_VALUE + 1) >> 0) as RgbNumber;
+		const green = ((Math.random() * MAX_BYTE_VALUE + 1) >> 0) as RgbNumber;
+		const blue = ((Math.random() * MAX_BYTE_VALUE + 1) >> 0) as RgbNumber;
+
+		return new Rgb({
+			red,
+			green,
+			blue
 		});
 	}
 
@@ -107,5 +118,11 @@ export class Rgb implements Color<RgbColor> {
 			green: this._green,
 			blue: this._blue
 		};
+	}
+
+	private _rgbNumberAsHexNumber(color: RgbNumber): string {
+		const hexColor = color.toString(HEX_SYSTEM_VALUE);
+
+		return hexColor.length === 1 ? `0${hexColor}` : hexColor;
 	}
 }

@@ -12,7 +12,7 @@ const enum ByteLength {
 export const HEX_SYSTEM_VALUE = 16;
 export const MAX_BYTE_VALUE = 255;
 
-export class Hex implements Color<HexColor> {
+export class Hex implements Color<HexColor, Hex> {
 	private _hex: HexColor;
 
 	constructor(hex: HexColor) {
@@ -32,6 +32,18 @@ export class Hex implements Color<HexColor> {
 
 	public asHsl(): Hsl {
 		return this.asRgb().asHsl();
+	}
+
+	public random(): Hex {
+		const hexValues = "0123456789abcdef";
+
+		let result = "#";
+
+		for (let i = 0; i < 6; i++) {
+			result += hexValues[Math.random() * hexValues.length];
+		}
+
+		return new Hex(result as HexColor);
 	}
 
 	public luminance(): number {
